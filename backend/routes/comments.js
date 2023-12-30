@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt')
 const Post = require("../models/Post") 
 const Comment = require("../models/Comment") 
 const { info } = require('console')
+const verifyToken = require('../verifyToken')
 
 //CREATE
 router.post("/create",async(req,res)=>{
@@ -19,10 +20,10 @@ router.post("/create",async(req,res)=>{
 })
 
 //UPDATE
-router.put("/:id",async(req,res)=>{
+router.put("/:id",verifyToken,async(req,res)=>{
     try{
         const updatedComment=await Comment.findByIdAndUpdate(req.params.id,{$set:req.body},{new:true})
-        res.status(200).json(updatedUser)
+        res.status(200).json(updatedComment)
     }
     catch(err){
         res.status(500).json(err)
@@ -30,7 +31,7 @@ router.put("/:id",async(req,res)=>{
 })
 
 //DELETE
-router.delete("/:id",async(req,res)=>{
+router.delete("/:id",verifyToken,async(req,res)=>{
     try{
         await Comment.findByIdAndDelete(req.params.id)
         res.status(200).json("Comment  has been deleted!")

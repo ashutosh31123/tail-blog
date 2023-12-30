@@ -32,7 +32,7 @@ router.post("/login", async(req,res)=>{
         if(!match){
             return res.status(401).json("Wrong credentials")
         }
-        const token = jwt.sign({id:user._id},process.env.SECRET,{expiresIn:"2d"})
+        const token = jwt.sign({id:user._id,username:user._username,email:user._email},process.env.SECRET,{expiresIn:"2d"})
         const{password,...info}=user._doc
         res.cookie("jwtToken",token).status(200).json(info)
     }
@@ -48,6 +48,17 @@ router.get("/logout", async(req,res)=>{
     catch(err){
         res.status(500).json(err)
     }
+})
+
+//REFETCH USER 
+router.get("/refetch", (req,res)=>{
+    const token=req.cookies.token
+    jwt.verify(token,process.env.SECRET,{},async (err,data)=>{
+        if(err){
+            return res.status(404).json(err)
+        }
+        res.status(200).json(data)
+    })
 })
 
 module.exports=router
