@@ -2,7 +2,6 @@ import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 import { URL } from "../url";
 
-
 // eslint-disable-next-line react-refresh/only-export-components
 export const userContext = createContext({})
 
