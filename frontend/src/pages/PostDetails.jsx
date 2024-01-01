@@ -1,3 +1,4 @@
+import { useParams } from "react-router-dom"
 import Comments from "../components/Comments"
 import Footer from "../components/Footer"
 import Navbar from "../components/Navbar"
@@ -5,13 +6,23 @@ import {BiEdit} from "react-icons/bi"
 import {MdDelete} from "react-icons/md"
 
 const PostDetails = () => {
-  return (
+    
+    const postIdFromParams = useParams().id;
+    //const postId = `${postIdFromParams}${post._id}`;
+    console.log(postIdFromParams)
+    // const fetchPost=async()=>{
+    //     try{
+    //         const res=
+    //     }
+    // }
+  
+    return (
     <div>
         <Navbar />
         <div className="px-8 md:px-[200px] mt-8">
             <div className="flex justify-between items-center">
                 <h1 className="text-2xl font-bold text-black md:text-3xl">          10 Uses of AI in Day to Day Life
-</h1> 
+                </h1> 
         <div className="flex items-center justify-center space-x-2">
             <p><BiEdit/></p>
             <p><MdDelete/></p>
